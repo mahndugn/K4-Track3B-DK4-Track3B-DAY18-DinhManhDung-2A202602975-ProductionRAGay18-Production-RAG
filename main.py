@@ -30,14 +30,16 @@ def main():
     print("\n📌 STEP 1: Running Basic RAG Baseline...")
     print("-" * 40)
     from naive_baseline import main as run_baseline
+
     run_baseline()
 
     # Step 2: Production Pipeline
     print("\n📌 STEP 2: Running Production Pipeline...")
     print("-" * 40)
     from src.pipeline import build_pipeline, evaluate_pipeline
+
     search, reranker = build_pipeline()
-    prod_results = evaluate_pipeline(search, reranker)
+    evaluate_pipeline(search, reranker)
 
     # Ensure reports are located in reports/
     for f in ["ragas_report.json", "naive_baseline_report.json"]:
@@ -55,6 +57,15 @@ def main():
             naive = json.load(f)
         with open(prod_path, encoding="utf-8") as f:
             prod = json.load(f)
+
+        if any(r["aggregate"].get("evaluation_status") != "completed" for r in (naive, prod)):
+            print(
+                "RAGAS chưa chạy thành công: các số 0 trong báo cáo là placeholder, không phải điểm đo."
+            )
+            print(
+                f"Pipeline hoàn tất trong {time.time() - start:.1f}s; xem reports/ để kiểm tra contexts và trạng thái."
+            )
+            return
 
         print(f"\n{'Metric':<25} {'Basic':>8} {'Production':>12} {'Δ':>8}")
         print("-" * 55)

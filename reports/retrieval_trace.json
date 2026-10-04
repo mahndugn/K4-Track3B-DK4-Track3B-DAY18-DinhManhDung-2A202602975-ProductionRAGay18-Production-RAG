@@ -1,0 +1,160 @@
+{
+  "mode": "offline_smoke",
+  "cases": [
+    {
+      "question_index": 4,
+      "question": "Nhân viên được nghỉ bao nhiêu ngày phép năm?",
+      "hybrid_candidate_sources": [
+        "nghi_phep_dac_biet.md",
+        "nghi_phep_nam_v2023.md",
+        "nghi_phep_dac_biet.md",
+        "nghi_phep_khong_luong.md",
+        "thu_viec.md",
+        "nghi_phep_nam_v2024.md",
+        "nghi_phep_nam_v2024.md",
+        "nghi_phep_nam_v2023.md",
+        "nghi_om.md",
+        "nghi_phep_nam_v2023.md",
+        "nghi_om.md",
+        "nghi_om.md",
+        "nghi_phep_nam_v2024.md",
+        "phu_cap.md",
+        "nghi_phep_nam_v2023.md",
+        "nghi_phep_nam_v2024.md",
+        "hoan_chi_dao_tao.md",
+        "nghi_phep_dac_biet.md",
+        "nghi_phep_nam_v2024.md",
+        "nghi_phep_khong_luong.md"
+      ],
+      "selected_context_sources": [
+        "[Nguồn: nghi_phep_dac_biet.md]",
+        "[Nguồn: nghi_phep_khong_luong.md]",
+        "[Nguồn: thu_viec.md]"
+      ]
+    },
+    {
+      "question_index": 12,
+      "question": "Một nhân viên Senior có 9 năm thâm niên được nghỉ bao nhiêu ngày phép năm và lương trong khoảng nào?",
+      "hybrid_candidate_sources": [
+        "nghi_phep_nam_v2024.md",
+        "nghi_phep_nam_v2023.md",
+        "nghi_phep_khong_luong.md",
+        "nghi_phep_dac_biet.md",
+        "thu_viec.md",
+        "nghi_phep_nam_v2023.md",
+        "nghi_phep_nam_v2024.md",
+        "nghi_om.md",
+        "hoan_chi_dao_tao.md",
+        "nghi_phep_khong_luong.md",
+        "nghi_phep_dac_biet.md",
+        "nghi_phep_nam_v2024.md",
+        "nghi_phep_nam_v2023.md",
+        "nghi_om.md",
+        "mentor_buddy.md",
+        "nghi_om.md",
+        "nghi_phep_nam_v2023.md",
+        "nghi_phep_nam_v2024.md",
+        "hoan_chi_dao_tao.md",
+        "nghi_phep_dac_biet.md"
+      ],
+      "selected_context_sources": [
+        "[Nguồn: nghi_phep_khong_luong.md]",
+        "[Nguồn: nghi_phep_nam_v2024.md]",
+        "[Nguồn: nghi_phep_dac_biet.md]"
+      ]
+    },
+    {
+      "question_index": 13,
+      "question": "Nếu cần mua một chiếc laptop 30 triệu cho nhân viên mới, ai phê duyệt và cần gì từ phòng CNTT?",
+      "hybrid_candidate_sources": [
+        "hoan_chi_dao_tao.md",
+        "mua_sam.md",
+        "tam_ung.md",
+        "nghi_phep_khong_luong.md",
+        "chi_phi_expense.md",
+        "dao_tao_noi_bo.md",
+        "mua_sam.md",
+        "thu_viec.md",
+        "so_tay_an_toan.pdf",
+        "mentor_buddy.md",
+        "lam_viec_tu_xa.md",
+        "nghi_phep_khong_luong.md",
+        "tam_ung.md",
+        "bao_mat_su_co.md",
+        "mua_sam.md",
+        "nghi_om.md",
+        "bao_hiem_suc_khoe.md",
+        "nghi_phep_nam_v2023.md",
+        "bao_hiem_suc_khoe.md",
+        "nghi_phep_nam_v2024.md"
+      ],
+      "selected_context_sources": [
+        "[Nguồn: hoan_chi_dao_tao.md]",
+        "[Nguồn: dao_tao_noi_bo.md]",
+        "[Nguồn: nghi_phep_khong_luong.md]"
+      ]
+    },
+    {
+      "question_index": 17,
+      "question": "Nhân viên tạm ứng 15 triệu, sau 20 ngày mới thanh toán. Bị phạt bao nhiêu?",
+      "hybrid_candidate_sources": [
+        "tam_ung.md",
+        "tam_ung.md",
+        "tam_ung.md",
+        "nghi_phep_nam_v2024.md",
+        "bao_hiem_suc_khoe.md",
+        "cong_tac_phi.md",
+        "cong_tac_phi.md",
+        "nghi_phep_nam_v2024.md",
+        "nghi_phep_dac_biet.md",
+        "mentor_buddy.md",
+        "lam_viec_tu_xa.md",
+        "nghi_phep_nam_v2024.md",
+        "bao_hiem_suc_khoe.md",
+        "tam_ung.md",
+        "tam_ung.md",
+        "nghi_om.md",
+        "vpn_truy_cap.md",
+        "mat_khau_v2.md",
+        "hoan_chi_dao_tao.md",
+        "nghi_phep_nam_v2023.md"
+      ],
+      "selected_context_sources": [
+        "[Nguồn: tam_ung.md]",
+        "[Nguồn: bao_hiem_suc_khoe.md]",
+        "[Nguồn: nghi_phep_nam_v2024.md]"
+      ]
+    },
+    {
+      "question_index": 18,
+      "question": "Lương thử việc của nhân viên Junior mức cao nhất là bao nhiêu?",
+      "hybrid_candidate_sources": [
+        "thu_viec.md",
+        "bang_luong_2024.md",
+        "thu_viec.md",
+        "thu_viec.md",
+        "thuong_tet.md",
+        "bao_hiem_suc_khoe.md",
+        "phu_cap.md",
+        "ky_luong.md",
+        "nghi_om.md",
+        "nghi_phep_khong_luong.md",
+        "phan_loai_du_lieu.md",
+        "mentor_buddy.md",
+        "nghi_phep_khong_luong.md",
+        "thu_viec.md",
+        "bao_hiem_suc_khoe.md",
+        "bao_hiem_suc_khoe.md",
+        "bao_hiem_suc_khoe.md",
+        "nghi_phep_nam_v2024.md",
+        "bang_luong_2024.md",
+        "mat_khau_v1.md"
+      ],
+      "selected_context_sources": [
+        "[Nguồn: thu_viec.md]",
+        "[Nguồn: bang_luong_2024.md]",
+        "[Nguồn: thuong_tet.md]"
+      ]
+    }
+  ]
+}

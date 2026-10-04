@@ -4,9 +4,14 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
+os.environ.setdefault("RAGAS_DO_NOT_TRACK", "true")
 
 # --- API Keys ---
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+if OPENAI_API_KEY in {"sk-...", "", "your-api-key"}:
+    OPENAI_API_KEY = ""
+OFFLINE = os.getenv("RAG_OFFLINE", "0") == "1"
+LLM_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 
 # --- Qdrant ---
 QDRANT_HOST = "localhost"

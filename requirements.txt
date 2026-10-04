@@ -5,9 +5,10 @@ rank-bm25>=0.2.2
 qdrant-client>=1.9
 sentence-transformers>=3.0
 flashrank>=0.2
-ragas>=0.1.10,<0.2
-langchain-community>=0.2,<0.3
-langchain-openai>=0.1,<0.2
+ragas==0.2.15
+langchain-community>=0.3,<0.4
+langchain-openai>=0.2,<0.4
+langchain>=0.3,<0.4
 datasets>=2.19
 openai>=1.30
 pytest>=8.0

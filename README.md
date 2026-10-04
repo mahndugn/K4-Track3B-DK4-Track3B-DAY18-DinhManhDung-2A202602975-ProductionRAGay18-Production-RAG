@@ -7,6 +7,45 @@
 
 ## Tổng quan
 
+### Trạng thái triển khai
+
+Đã triển khai M1–M5, trả parent context sau khi retrieve/rerank child,
+combined enrichment, báo cáo từng câu hỏi và latency từng bước.
+Các tài liệu PDF scan được cảnh báo và bỏ qua; cần OCR trước khi đưa vào corpus.
+
+Môi trường kiểm tra tại repo dùng Python **3.13** (`.venv`). Dependencies đã
+được cập nhật sang RAGAS 0.2.15 và LangChain 0.3 để hỗ trợ Python 3.13/NumPy 2.
+API `evaluate()` vẫn nhận Dataset và 4 metrics như đề bài. Tham khảo
+[tài liệu RAGAS](https://docs.ragas.io/en/v0.2.15/references/evaluate/).
+
+```powershell
+# Nếu chưa có môi trường ảo:
+py -3.13 -m venv .venv
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+
+# Kiểm tra offline, không tải model và không gọi API:
+$env:RAG_OFFLINE = "1"
+.venv\Scripts\python.exe -m pytest tests/ -q
+.venv\Scripts\python.exe main.py
+.venv\Scripts\python.exe check_lab.py
+
+# Chạy production thật: điền OPENAI_API_KEY hợp lệ vào .env trước.
+Remove-Item Env:RAG_OFFLINE
+docker compose up -d
+.venv\Scripts\python.exe main.py
+```
+
+Offline dùng tokenization đơn giản, hashing vectors và token overlap để kiểm tra luồng dữ liệu;
+không đại diện cho chất lượng BGE/CrossEncoder. Qdrant tự chuyển sang in-memory
+nếu server chưa chạy. Không có API key thì enrichment dùng extractive fallback,
+answer trả context, và `evaluation_status="unavailable"`. Khi đó điểm 0 là
+placeholder, **không phải kết quả RAGAS**. Báo cáo lưu cả câu trả lời, context,
+ground truth để kiểm tra thủ công; chỉ so sánh metrics khi trạng thái là `completed`.
+
+`analysis/reflections/reflection_DinhManhDung.md` là bản tổng kết kỹ thuật dựa
+trên lần chạy được ghi trong repo; kế hoạch project là đề xuất để học viên chỉnh
+theo project thực tế.
+
 Bài tập **cá nhân** — implement toàn bộ 5 modules:
 
 ```

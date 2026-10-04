@@ -60,17 +60,27 @@ def run_tests() -> tuple[int, int]:
     """Run pytest and return (passed, total)."""
     try:
         import re
+
         result = subprocess.run(
             [sys.executable, "-m", "pytest", "tests/", "-v", "--tb=no", "-q"],
-            capture_output=True, text=True, timeout=120, encoding="utf-8", errors="replace"
+            capture_output=True,
+            text=True,
+            timeout=120,
+            encoding="utf-8",
+            errors="replace",
         )
-        lines = result.stdout.strip().split("\n")
-        summary = lines[-1] if lines else ""
+        summary = result.stdout
         m_pass = re.search(r"(\d+)\s+passed", summary)
         m_fail = re.search(r"(\d+)\s+failed", summary)
         passed = int(m_pass.group(1)) if m_pass else 0
         failed = int(m_fail.group(1)) if m_fail else 0
-        total = passed + failed
+        m_error = re.search(r"(\d+)\s+errors?", summary)
+        total = passed + failed + (int(m_error.group(1)) if m_error else 0)
+        if result.returncode != 0 and total == passed:
+            total += 1
+        if result.returncode != 0:
+            print(result.stdout[-2000:])
+            print(result.stderr[-1000:])
         return passed, total
     except Exception as e:
         print(f"  ⚠️  pytest error: {e}")
@@ -83,8 +93,14 @@ def validate():
 
     # 1. Source files
     print("📁 Source code:")
-    for f in ["src/m1_chunking.py", "src/m2_search.py", "src/m3_rerank.py",
-              "src/m4_eval.py", "src/m5_enrichment.py", "src/pipeline.py"]:
+    for f in [
+        "src/m1_chunking.py",
+        "src/m2_search.py",
+        "src/m3_rerank.py",
+        "src/m4_eval.py",
+        "src/m5_enrichment.py",
+        "src/pipeline.py",
+    ]:
         if not check_file(f):
             errors += 1
 
@@ -99,24 +115,42 @@ def validate():
 
     # 3. Analysis
     print("\n📝 Analysis:")
-    check_file("analysis/failure_analysis.md")
+    if not check_file("analysis/failure_analysis.md"):
+        errors += 1
 
     # 4. Individual reflections
     print("\n👤 Individual reflections:")
     reflections = []
     ref_dir = "analysis/reflections"
     if os.path.isdir(ref_dir):
-        reflections.extend([f"{ref_dir}/{f}" for f in os.listdir(ref_dir)
-                            if f.startswith("reflection_") and f.endswith(".md") and f != "reflection_TEMPLATE.md"])
+        reflections.extend(
+            [
+                f"{ref_dir}/{f}"
+                for f in os.listdir(ref_dir)
+                if f.startswith("reflection_")
+                and f.endswith(".md")
+                and f != "reflection_TEMPLATE.md"
+            ]
+        )
     if os.path.isdir("analysis"):
-        reflections.extend([f"analysis/{f}" for f in os.listdir("analysis")
-                            if f.startswith("reflection_") and f.endswith(".md") and f != "reflection_TEMPLATE.md"])
+        reflections.extend(
+            [
+                f"analysis/{f}"
+                for f in os.listdir("analysis")
+                if f.startswith("reflection_")
+                and f.endswith(".md")
+                and f != "reflection_TEMPLATE.md"
+            ]
+        )
 
     if reflections:
         for r in set(reflections):
             print(f"  ✅ {r}")
     else:
-        print(f"  ⚠️  Chưa có file reflection cá nhân (đặt tại {ref_dir}/reflection_[HọTên].md hoặc analysis/reflection_[HọTên].md)")
+        print(
+            f"  ⚠️  Chưa có file reflection cá nhân (đặt tại {ref_dir}/reflection_[HọTên].md hoặc analysis/reflection_[HọTên].md)"
+        )
+        errors += 1
 
     # 5. TODO count
     print("\n🔧 TODO markers:")
@@ -125,6 +159,7 @@ def validate():
         print("  ✅ Không còn TODO nào")
     else:
         print(f"  ⚠️  Còn {todo_count} TODO chưa implement")
+        errors += 1
 
     # 6. Tests
     print("\n🧪 Auto-tests:")
@@ -132,17 +167,26 @@ def validate():
     if total > 0:
         pct = passed / total * 100
         print(f"  {'✅' if pct >= 80 else '⚠️'} {passed}/{total} tests passed ({pct:.0f}%)")
+        if passed != total:
+            errors += 1
     else:
         print("  ⚠️  Không chạy được tests")
+        errors += 1
 
     # 7. Summary
     print("\n" + "=" * 50)
     if errors == 0:
-        print("🚀 Bài lab sẵn sàng để nộp!")
+        with open("reports/ragas_report.json", encoding="utf-8") as f:
+            report = json.load(f)
+        if report.get("aggregate", {}).get("evaluation_status") == "completed":
+            print("🚀 Các kiểm tra bài lab đã đạt.")
+        else:
+            print("Code và deliverables đã đạt kiểm tra; RAGAS còn cần chạy với API key hợp lệ.")
     else:
         print(f"❌ Có {errors} lỗi. Sửa trước khi nộp.")
     print("=" * 50)
+    return errors
 
 
 if __name__ == "__main__":
-    validate()
+    sys.exit(1 if validate() else 0)
